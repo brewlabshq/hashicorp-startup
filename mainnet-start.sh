@@ -49,7 +49,7 @@ exec agave-validator \
     --vote-account "$VOTE_ACCOUNT" \
     --authorized-voter "$LINKED_IDENTITY_FILE" \
     --only-known-rpc \
-    --log "/home/sol/solana-validator.log" \
+    --log "/home/sol/logs/solana-validator.log" \
     --ledger "/mnt/ledger" \
     --accounts "/mnt/accounts" \
     --snapshots "/mnt/snapshot" \
@@ -58,41 +58,22 @@ exec agave-validator \
     --private-rpc \
     --known-validator 7Np41oeYqPefeNQEHSv1UDhYrehxin3NStELsSKCT4K2 \
     --known-validator GdnSyH3YtwcxFvQrVVJMm1JhTS4QVX7MFsX56uJLUfiZ \
-    --known-validator DE1bawNcRJB9rVm3buyMVfr8mBEoyyu73NBovf2oXJsJ \
-    --known-validator CakcnaRDHka2gXyfbEd2d3xsvkJkqsLw2akB3zsN1D2S \
-    --known-validator J2jV3gQsvX2htBXHeNStAVvMJaPe3RgNotwfav9pyS6y \
-    --known-validator 4QNekaDqrLmUENqkVhGCJrgHziPxkX9kridbKwunx9su \
-    --known-validator 8n9KRHDRDuZErZwdwzhtsTFJxmHqgCQ4ddZcdk6GMzvQ \
-    --known-validator AptafqHRpGk3KCQrGtuPGuPvWMuPc4N15X7NN7VUsfbd \
-    --known-validator CoreSWM6pda9TtmbtZm6JS71yaNd9zfy4Vh5mRj7X6eh \
-    --known-validator 9YhtjxKWSuWSYuAcSJfVyppXPGxeVhCSB8Vh8yxZzotD \
-    --known-validator 2gDeeRa3mwPPtw1CMWPkEhRWo9v5izNBBfEXanr8uibX \
-    --known-validator EgxVyTgh2Msg781wt9EsqYx4fW8wSvfFAHGLaJQjghiL \
-    --known-validator Certusm1sa411sMpV9FPqU5dXAYhmmhygvxJ23S6hJ24 \
-    --known-validator G2TBEh2ahNGS9tGnuBNyDduNjyfUtGhMcssgRb8b6KfH \
-    --known-validator fishfishrD9BwrQQiAcG6YeYZVUYVJf3tb9QGQPMJqF \
-    --known-validator 3B2mGaZoFwzAnWCoZ4EAKdps4FbYbDKQ48jo8u1XWynU \
-    --known-validator Frog1Fks1AVN8ywFH3HTFeYojq6LQqoEPzgQFx2Kz5Ch \
-    --known-validator GLh2T3KmWH4dUxGEVFuExffK4TLotmfeSCGg6fP7g78z \
-    --known-validator 8yjHdsCgx3bp2zEwGiWSMgwpFaCSzfYAHT1vk7KJBqhN \
-    --known-validator QaRMfSVgNxAy9JSunzFA395wZDT46d8ZRwRYnEeNSiU \
-    --expected-bank-hash 69p75jzzT1P2vJwVn3wbTVutxHDcWKAgcbjqXvwCVUDE \
     --tip-payment-program-pubkey "$tip_payment_pubkey" \
     --tip-distribution-program-pubkey "$tip_distribution_pubkey" \
     --merkle-root-upload-authority "$merkle_root_authority" \
     --commission-bps $commission_bps \
     --shred-receiver-address "$jito_shred_receiver_address" \
     --block-engine-url "$jito_block_engine_url" \
-    --block-production-method central-scheduler \
+    --block-production-method central-scheduler-greedy \
     --entrypoint entrypoint.mainnet-beta.solana.com:8001 \
     --entrypoint entrypoint2.mainnet-beta.solana.com:8001 \
     --entrypoint entrypoint3.mainnet-beta.solana.com:8001 \
     --entrypoint entrypoint4.mainnet-beta.solana.com:8001 \
     --entrypoint entrypoint5.mainnet-beta.solana.com:8001 \
-    --use-snapshot-archives-at-startup when-newest \
+    --minimal-snapshot-download-speed 10485760 \
+    --incremental-snapshot-interval-slots 0 # remove this if you need snapshot
 
 # Clean up the temporary identity file after the process ends
 EXIT_CODE=$?
 rm -f "$TMP_IDENTITY_FILE"
 exit $EXIT_CODE
-

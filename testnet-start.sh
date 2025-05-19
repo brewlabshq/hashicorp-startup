@@ -36,7 +36,7 @@ exec /home/sol/.local/share/solana/install/active_release/bin/agave-validator \
     --identity "$TMP_IDENTITY_FILE" \
     --vote-account "$VOTE_ACCOUNT" \
     --only-known-rpc \
-    --log "/home/sol/solana-validator.log" \
+    --log "/home/sol/logs/solana-validator.log" \
     --ledger "/mnt/ledger" \
     --accounts "/mnt/accounts" \
     --snapshots "/mnt/snapshots" \
@@ -53,7 +53,8 @@ exec /home/sol/.local/share/solana/install/active_release/bin/agave-validator \
     --entrypoint entrypoint2.testnet.solana.com:8001 \
     --entrypoint entrypoint3.testnet.solana.com:8001 \
     --use-snapshot-archives-at-startup when-newest \
-    --block-production-method central-scheduler
+    --minimal-snapshot-download-speed 10485760 \
+    --block-production-method central-scheduler-greedy
 
 # Clean up the temporary identity file after the process ends
 EXIT_CODE=$?
